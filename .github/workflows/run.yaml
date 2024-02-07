@@ -6,6 +6,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          echo "ths is env=$ENV_1"
+          echo "(1) ths is env=$ENV_1"
         env: 
-          ENV_1: kaykaykhine
+          ENV_1: hashito
+      - run: |
+          echo "(2) ths is env=$ENV_1"
