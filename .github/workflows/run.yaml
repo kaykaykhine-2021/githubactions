@@ -1,10 +1,15 @@
 name: learn-github-actions
 on: [push]
+env:
+  DAY_OF_WEEK: Monday
 jobs:
-  check-bats-version:
+  greeting_job:
     runs-on: ubuntu-latest
+    env:
+      Greeting: Hello
     steps:
-      - run: echo "this is pen"
-      - uses: actions/checkout@v2
-      - run: |
-          echo "### Hello world! :rocket:" >> $GITHUB_STEP_SUMMARY
+      - name: "Say Hello Mona it's Monday"
+        if: ${{ env.DAY_OF_WEEK == 'Monday' }}
+        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+        env:
+          First_Name: Mona
