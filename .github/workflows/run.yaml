@@ -1,7 +1,7 @@
 name: main-name
-on: push
+on: [push]
 jobs:
-  job-name : add mask
+  job-name :
   bash-example:
     runs-on: ubuntu-latest
     env:
