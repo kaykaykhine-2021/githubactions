@@ -1,11 +1,11 @@
 name: main-name
 on: [push]
-env:
-  env_1 : hashito
 jobs:
   job-name:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: |
-          echo "ths is env=${{ env.env_1 }}"
+          echo "ths is env=$ENV_1"
+        env: 
+          ENV_1: hashito
