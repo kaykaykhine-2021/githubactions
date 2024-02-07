@@ -1,7 +1,7 @@
 name: main-name
 on: [push]
 jobs:
-  job-name:
+  bash-example:
     runs-on: ubuntu-latest
     env:
       MY_NAME: "Mona The Octocat"
