@@ -1,15 +1,19 @@
-name: main-name
-on: [push]
+on: push
+name: deploy
 jobs:
-  bash-example:
+  deploy:
+    name: deploy to cluster
     runs-on: ubuntu-latest
     steps:
-      - name: Set the value
-        id: step_one
-        run: |
-          echo "action_state=yellow" >> "$GITHUB_ENV"
-      - name: Use the value
-        id: step_two
-        run: |
-          printf '%s\n' "$action_state" # This will output 'yellow'
-
+    - uses: actions/checkout@master
+    - name: deploy to cluster
+      uses: steebchen/kubectl@v2.0.0
+      with: # defaults to latest kubectl binary version
+        config: ${{ secrets.KUBE_CONFIG_DATA }}
+        command: set image --record deployment/my-app container=${{ github.repository }}:${{ github.sha }}
+    - name: verify deployment
+      uses: steebchen/kubectl@v2.0.0
+      with:
+        config: ${{ secrets.KUBE_CONFIG_DATA }}
+        version: v1.21.0 # specify kubectl binary version explicitly
+        command: rollout status deployment/my-app
