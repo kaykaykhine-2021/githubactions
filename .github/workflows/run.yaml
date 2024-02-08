@@ -1,21 +1,16 @@
-name: command
-on: [push]
+on:
+  workflow_run:
+    workflows: [Build]
+    types: [completed]
+
 jobs:
-  command:
-    name: Use Linux commands
-    runs-on: ubuntu-20.04
+  on-success:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Show ubuntu details
-        run: lsb_release -a
-      - name: Inspect files before checkot
-        run: ls -lau
-      - name: show current directory before checkout
-        run: pwd
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Inspect files after checkout
-        run: ls -la
-      - name: show current directory after checkout
-        run: pwd
-      - name: show all branches after checkout
-        run: git branch -a
+      - run: echo 'The triggering workflow passed'
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'The triggering workflow failed'
