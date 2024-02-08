@@ -7,8 +7,8 @@ jobs:
     steps:
       - name: Show ubuntu details
         run: lsb_release -a
-      - name: Inspect files before checkout
-        run: ls -la
+      - name: Inspect files before checkot
+        run: ls -lau
       - name: show current directory before checkout
         run: pwd
       - name: Checkout
